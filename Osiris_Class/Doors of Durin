@@ -1,0 +1,43 @@
+Challenge Link: https://class.osiris.cyber.nyu.edu/challenges#Doors%20of%20Durin
+
+Challenge Text:- 
+  You've found yourself by a strange door, at a strange lake.
+  Can you open it?
+  nc offsec-chalbroker.osiris.cyber.nyu.edu 1235
+  
+Solution:-
+The challenge text suggests us to use the 'nc' command to log in to the server ip address provided. 
+When we login, we are presented with a story and we are expected to find the answer hidden.
+
+"""
+Please input your NetID (something like abc123): gc2877
+hello, gc2877. Please wait a moment...
+You and your party of a Wizard, a Dwarf, and Elf, 2 Men, and 3 other Hobbits stand around the Doors of Durin, the entrance to the Dwarven Mines of Moria.
+A door blocks your way into the Mines, the only remaining path you have to get to the forest Lothlórien, where the Lady Galadriel is sure to offer you sanctuary from the dark forces pursuing you.
+
+The Wizard looks at the Doors, and reads:
+
+	"Ennyn Durin Aran Moria. Pedo mellon a Minno. Im Narvi hain echant. Celebrimbor o Eregion tethant. I thiw hin."
+
+You ask, "What does it mean?"
+
+"Oh, it is a simple riddle," says the Wizard.
+
+	"The Doors of Durin, Lord of Moria. Speak friend and enter. I Narvi made them. Celebrimbor of Hollin drew these signs."
+
+You think for a moment. "Speak friend and enter." What could it mean?
+
+Suddenly, the answer comes to you!
+You shout: 
+"""
+
+The text "Speak friend and enter." suggests to enter "friend" or something related to it. As there is a translation of the words in the other language, the
+corresponding text is "Pedo mellon a Minno."
+
+After few tries, we see that the corresponding word is "mellon", entering which we are presented with the flag.
+
+"""
+The Doors open! As you delve into the Mines, you hear a whisper on the wind:
+
+	The flag is: flag{the_dwarves_dug_too_deep_c98e4e6466ec}
+"""
