@@ -1,0 +1,61 @@
+Challenge Link: https://class.osiris.cyber.nyu.edu/challenges#mathwhiz
+
+Challenge Text:-
+I found some hard math lying around. Can you help me out?
+nc offsec-chalbroker.osiris.cyber.nyu.edu 1236
+
+Solution:-
+The text suggests to use the command 'nc' to login to the challenge server.
+After login, we are presented with a series of simple math questions. Once you start solving these basic math questions, you realize there are lot many 
+questions to be solved manually and this would require a script to solve.
+Note:- The input questions are sometimes in the form of characters as well so we will have to take that case into account in our script.
+
+Script:-
+"""
+import re
+import subprocess
+
+num_dict = {"ZERO": 0, "ONE": 1, "TWO":2, "THREE":3, "FOUR":4, "FIVE":5, "SIX":6, "SEVEN":7, "EIGHT":8, "NINE":9}
+proc = subprocess.Popen(["nc", "offsec-chalbroker.osiris.cyber.nyu.edu", "1236"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+proc.stdin.write(b'gc2877\n')
+proc.stdin.flush()
+for line in proc.stdout:
+   print("[INFO] " + line.decode("utf-8"))
+   if '=' in line.decode("utf-8"):
+      eq = line.decode("utf-8").split('=')[0]
+      for key in num_dict.keys():
+        if key in line.decode("utf-8"):
+            pattern = re.compile(r'[ ][+-\/*][ ]')
+            operator = pattern.findall(line.decode("utf-8").split('=')[0])[0]
+            eq_split = line.decode("utf-8").split('=')[0].split(operator)
+            eq = ""
+            count = 0
+            for num in eq_split:
+               count = count + 1
+               if '-' in num:
+                  num_split = num.split('-')
+                  for word in num_split:
+                     eq = eq + str(num_dict[word.strip()])
+               else:
+                  eq = eq + num
+               if count == 1:
+                  eq = eq + operator
+                     
+      eq_soln = eval(eq)
+      proc.stdin.write((str(eq_soln) + '\n').encode("utf-8"))
+      proc.stdin.flush()
+      
+"""
+
+This uses the 'subprocess.Popen()' method to establish a connection and continuously submits the result of the math problems provided using the 'eval' method.
+Once run, you are presented with the flag.
+
+Note:- An easier way to change the character input of numbers to actual numbers would be to replace the strings using our dictionary
+
+
+
+
+
+
+
+
