@@ -45,7 +45,6 @@ Your challenge is to delve into the JavaScript code, leveraging your skills to f
 ### 3. Auto signing of requests and SQLi
 - To start attacking other parts of the requests, we need a script that changes the signature in our request if the pathWithQueries, currTimeStamp or userId changes. Luckily the website doesn't check for timestamp so we can keep that constant. One can check that by sending same timestamp in multiple requests.
 - Also indicated by Brett's article, we need to create a BurpSuite extension that does that for us. Since I used montoyaAPI and Java for building the extension, I had trouble running the JS code from Java. I ended up calling the JS code with little changes through a shell command and read the signature from returned result.
-![Alt text](image-2.png)
 - This extension would update the Sign header value according to the request's path and User-Id header value. Timestamp was kept constant throughout.
 - Writing a burp extension was a learning topic for me and I would recommend taking your time here if you are writing for the first time.
 - The only good place to start attacking seems to be 'id' query parameter in the /api/article?id= API, and the first idea is to try SQLi since it can be a low hanging fruit.
